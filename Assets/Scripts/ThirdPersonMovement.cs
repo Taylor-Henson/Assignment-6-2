@@ -4,14 +4,19 @@ using UnityEngine;
 public class ThirdPersonMovement : MonoBehaviour
 {
     //animations
-
+    public Animator anim;
 
     //movement/camera
     public CharacterController controller;
     public Transform cam;
-    public float speed = 3f;
+    public bool moving;
     public float turnSmoothTime = 0.3f;
     float turnSmoothVelocity;
+
+    //sprinting and speed
+    float speed;
+    float normalSpeed = 2.4f;
+    float sprintSpeed = 4;
 
     //gravity
     Vector3 velocity;
@@ -23,7 +28,8 @@ public class ThirdPersonMovement : MonoBehaviour
     public bool isGrounded;
 
     //jumping
-    public float jumpHeight = 0.5f;
+    float jumpHeight = 1f;
+    public bool isJumping;
 
     // Start is called once before the first frame
     // rst execution of Update after the MonoBehaviour is created
@@ -36,6 +42,7 @@ public class ThirdPersonMovement : MonoBehaviour
     void Update()
     {
         Movement();
+        Sprinting();
         Jumping();
         GroundCheck();
         Gravity();
@@ -52,10 +59,11 @@ public class ThirdPersonMovement : MonoBehaviour
         //create direction based on input
         Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
 
-        if (direction.magnitude >= 0.1f)
+        //if direction is present and not jumping
+        if (direction.magnitude >= 0.1f && !isJumping)
         {
-            //animation
-
+            //moving is if the player is moving, used for other methods
+            moving = true;
 
             //finds angle of player direction to rotate player and converts to degrees, adds camera rotation to sync with camera
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
@@ -72,6 +80,40 @@ public class ThirdPersonMovement : MonoBehaviour
             //move player controller in direction
             controller.Move(moveDir * speed * Time.deltaTime);
         }
+
+        else
+        {
+            moving = false;
+        }       
+    }
+
+    #endregion
+
+    #region Sprinting
+
+    void Sprinting()
+    {
+        if (Input.GetKey("left shift") && moving)
+        {
+            //sets the player running
+            anim.SetBool("Run", true);
+            anim.SetBool("Walk", false);
+            speed = sprintSpeed;
+        }
+        else if (moving)
+        {
+            //sets the player walking
+            anim.SetBool("Walk", true);
+            anim.SetBool("Run", false);
+            speed = normalSpeed;
+        }
+        else
+        {
+            //stops running and walking
+            anim.SetBool("Walk", false);
+            anim.SetBool("Run", false);
+            speed = normalSpeed;
+        }
     }
 
     #endregion
@@ -80,11 +122,22 @@ public class ThirdPersonMovement : MonoBehaviour
 
     void Jumping()
     {
-        //jumps
         if(Input.GetButtonDown("Jump") && isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            anim.SetTrigger("Jump");
+            isJumping = true;
         }
+    }
+
+    void Jump()
+    {
+        velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+    }
+
+    void EndJump()
+    {
+        print("end jump");
+        isJumping = false;
     }
 
     #endregion

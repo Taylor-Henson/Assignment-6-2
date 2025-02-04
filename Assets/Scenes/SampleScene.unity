@@ -390,7 +390,7 @@ Transform:
   m_GameObject: {fileID: 272104723}
   serializedVersion: 2
   m_LocalRotation: {x: 0.098537624, y: 4.2270633e-15, z: 2.7365083e-16, w: 0.9951334}
-  m_LocalPosition: {x: -1.159, y: 3.885, z: -8.465}
+  m_LocalPosition: {x: -1.159, y: 2.891, z: -8.465}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -514,7 +514,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.09853763, y: 4.2962845e-15, z: -4.2541608e-16, w: 0.99513334}
-  m_LocalPosition: {x: -1.159, y: 3.885, z: -8.465}
+  m_LocalPosition: {x: -1.159, y: 2.891, z: -8.465}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -949,7 +949,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 47348f5a5e5d8104e9b793ba19376d97, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.885
+      value: -0.109
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 47348f5a5e5d8104e9b793ba19376d97, type: 3}
       propertyPath: m_LocalPosition.z
@@ -988,9 +988,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5288669188104878401, guid: 47348f5a5e5d8104e9b793ba19376d97, type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.8983821
+      objectReference: {fileID: 0}
+    - target: {fileID: -5288669188104878401, guid: 47348f5a5e5d8104e9b793ba19376d97, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: bb1b524fb2b37374099a6c4bd963ef87, type: 2}
+    - target: {fileID: -3784695491857803630, guid: 47348f5a5e5d8104e9b793ba19376d97, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.6324858
+      objectReference: {fileID: 0}
+    - target: {fileID: -3784695491857803630, guid: 47348f5a5e5d8104e9b793ba19376d97, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.37547132
+      objectReference: {fileID: 0}
     - target: {fileID: -2198888584636164399, guid: 47348f5a5e5d8104e9b793ba19376d97, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0
@@ -998,6 +1010,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 47348f5a5e5d8104e9b793ba19376d97, type: 3}
       propertyPath: m_Name
       value: Third Person Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1995506796041576762, guid: 47348f5a5e5d8104e9b793ba19376d97, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.57854766
+      objectReference: {fileID: 0}
+    - target: {fileID: 1995506796041576762, guid: 47348f5a5e5d8104e9b793ba19376d97, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.3525135
       objectReference: {fileID: 0}
     - target: {fileID: 3511204660715449305, guid: 47348f5a5e5d8104e9b793ba19376d97, type: 3}
       propertyPath: m_Name
@@ -1150,9 +1170,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2fe1080d1d704f438d1b53a5acf4b23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 1568510975}
   controller: {fileID: 1568510974}
   cam: {fileID: 330585546}
-  speed: 6
   turnSmoothTime: 0.1
   gravity: -15
   groundCheck: {fileID: 268781846}
@@ -1160,7 +1180,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   isGrounded: 0
-  jumpHeight: 3
+  isJumping: 0
 --- !u!143 &1568510974
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1183,7 +1203,7 @@ CharacterController:
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.5
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.01
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!95 &1568510975
@@ -1195,8 +1215,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1568510971}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 7fa81d644f74a1a42b18d0bcb7b1b63d, type: 3}
-  m_Controller: {fileID: 9100000, guid: d233bd44decfba6468aadf376f484a17, type: 2}
+  m_Avatar: {fileID: 9000000, guid: b1b70924b7d3bd34a96d39beccbc8c1c, type: 2}
+  m_Controller: {fileID: 9100000, guid: d90797ee9e934694a95f307fa95b2324, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
