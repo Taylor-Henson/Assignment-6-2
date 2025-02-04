@@ -3,33 +3,40 @@ using UnityEngine;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
-    //animations
-    public Animator anim;
+    #region Variables and References
 
-    //movement/camera
+    [Header("General")]
+    public Animator anim;
+    public PlayerCombat playerCombat;
+
+    [Header("Movement/Camera")]
     public CharacterController controller;
     public Transform cam;
     public bool moving;
-    public float turnSmoothTime = 0.3f;
+    float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
 
-    //sprinting and speed
+    //speed and sprinting
     float speed;
     float normalSpeed = 2.4f;
     float sprintSpeed = 4;
 
     //gravity
     Vector3 velocity;
-    public float gravity = -15f;
+    float gravity = -15f;
 
-    //groundcheck
+    [Header("Groundcheck")]
     public Transform groundCheck;
     public LayerMask ground;
-    public bool isGrounded;
+    bool isGrounded;
 
-    //jumping
+    [Header("Jumping")]
     float jumpHeight = 1f;
     public bool isJumping;
+
+    #endregion
+
+    #region Start and Update
 
     // Start is called once before the first frame
     // rst execution of Update after the MonoBehaviour is created
@@ -48,6 +55,8 @@ public class ThirdPersonMovement : MonoBehaviour
         Gravity();
     }
 
+    #endregion
+
     #region Movement
 
     void Movement()
@@ -60,7 +69,7 @@ public class ThirdPersonMovement : MonoBehaviour
         Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
 
         //if direction is present and not jumping
-        if (direction.magnitude >= 0.1f && !isJumping)
+        if (direction.magnitude >= 0.1f && Manager.instance.canMove)
         {
             //moving is if the player is moving, used for other methods
             moving = true;
@@ -122,7 +131,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
     void Jumping()
     {
-        if(Input.GetButtonDown("Jump") && isGrounded)
+        if(Input.GetButtonDown("Jump") && isGrounded && Manager.instance.canMove)
         {
             anim.SetTrigger("Jump");
             isJumping = true;
@@ -136,7 +145,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
     void EndJump()
     {
-        print("end jump");
+        //print("end jump");
         isJumping = false;
     }
 
@@ -149,14 +158,9 @@ public class ThirdPersonMovement : MonoBehaviour
         float distance = 0.5f;
         Vector3 position = groundCheck.transform.position;
         Vector3 direction = Vector3.down;
-       
-        //debug
-        Debug.DrawRay(position, direction, Color.green);
 
         //groundcheck raycast
         isGrounded = Physics.Raycast(position, direction, distance, ground);
-        
-        //print(isGrounded);
     }
 
     #endregion
