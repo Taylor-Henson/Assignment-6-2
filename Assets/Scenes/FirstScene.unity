@@ -389,7 +389,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 272104723}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.098537624, y: 4.2270633e-15, z: 2.7365083e-16, w: 0.9951334}
+  m_LocalRotation: {x: 0.09853762, y: 0.000000029657288, z: -0.00000000293665, w: 0.99513334}
   m_LocalPosition: {x: -1.159, y: 2.891, z: -8.465}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -405,27 +405,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 272104723}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca7de3aefa901374ba29464584a3109a, type: 3}
+  m_Script: {fileID: 11500000, guid: dbe43d662878a7c43bcd44d43c9e2094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraRadius: 0.4
-  Decollision:
+  CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 64
+  IgnoreTag: 
+  TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  MinimumDistanceFromTarget: 0.3
+  AvoidObstacles:
     Enabled: 1
-    ObstacleLayers:
-      serializedVersion: 2
-      m_Bits: 1
+    DistanceLimit: 0
+    MinimumOcclusionTime: 0
+    CameraRadius: 0.4
     UseFollowTarget:
       Enabled: 0
       YOffset: 0
-    Damping: 0.5
-    SmoothingTime: 0.5
-  TerrainResolution:
-    Enabled: 1
-    TerrainLayers:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    MaximumRaycast: 10
-    Damping: 1
+    Strategy: 0
+    MaximumEffort: 4
+    SmoothingTime: 0
+    Damping: 0.4
+    DampingWhenOccluded: 0.2
+  ShotQualityEvaluation:
+    Enabled: 0
+    OptimalDistance: 10
+    NearLimit: 5
+    FarLimit: 30
+    MaxQualityBoost: 0.2
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,7 +522,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.09853763, y: 4.2962845e-15, z: -4.2541608e-16, w: 0.99513334}
+  m_LocalRotation: {x: 0.09853762, y: 0.000000029657286, z: -0.0000000029366503, w: 0.99513334}
   m_LocalPosition: {x: -1.159, y: 2.891, z: -8.465}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1015,6 +1024,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5288669188104878401, guid: 47348f5a5e5d8104e9b793ba19376d97, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5288669188104878401, guid: 47348f5a5e5d8104e9b793ba19376d97, type: 3}
       propertyPath: m_Quality
       value: 0
       objectReference: {fileID: 0}
@@ -1178,13 +1191,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1463350802}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.96, y: 1.11, z: -4.36}
+  m_LocalRotation: {x: -0.45436966, y: 0.016956612, z: 0.006302153, w: 0.8906296}
+  m_LocalPosition: {x: 1.95, y: -0.55, z: -4.76}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -54.053, y: 2.39, z: -0.408}
 --- !u!1 &1467196283
 GameObject:
   m_ObjectHideFlags: 0
@@ -1392,6 +1405,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   punching: 0
+  health: 100
+  dead: 0
 --- !u!1 &1769435067
 GameObject:
   m_ObjectHideFlags: 0

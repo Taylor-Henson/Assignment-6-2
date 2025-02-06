@@ -55,7 +55,7 @@ public class Manager : MonoBehaviour
     void CanMove()
     {
         //checks to see if movement is allowed
-        if (!thirdPersonMovement.isJumping && !playerCombat.punching)
+        if (!thirdPersonMovement.isJumping && !playerCombat.punching && !playerCombat.dead)
         {
             canMove = true;
         }

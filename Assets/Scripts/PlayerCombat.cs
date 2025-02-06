@@ -14,6 +14,10 @@ public class PlayerCombat : MonoBehaviour
     float sphereSize = 0.4f;
     public bool punching;
 
+    [Header("Dying")]
+    public float health = 100;
+    public bool dead;
+
     #endregion
 
     #region Start and Update
@@ -28,6 +32,7 @@ public class PlayerCombat : MonoBehaviour
     void Update()
     {
         DoPunch();
+        Health();
     }
 
     #endregion
@@ -57,6 +62,20 @@ public class PlayerCombat : MonoBehaviour
     void EndPunch()
     {
         punching = false;
+    }
+
+    #endregion
+
+    #region Health and Dying
+
+    void Health()
+    {
+        //kills player and stops them moving once health is <= 0
+        if (health <= 0 && !dead)
+        {
+            anim.SetTrigger("Die");
+            dead = true;
+        }
     }
 
     #endregion
