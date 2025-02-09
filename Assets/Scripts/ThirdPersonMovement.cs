@@ -53,6 +53,7 @@ public class ThirdPersonMovement : MonoBehaviour
         Jumping();
         GroundCheck();
         Gravity();
+        Bounds();
     }
 
     #endregion
@@ -179,6 +180,37 @@ public class ThirdPersonMovement : MonoBehaviour
         if (isGrounded && velocity.y < 0f)
         {
             velocity.y = -2f;
+        }
+    }
+
+    #endregion
+
+    #region Bounds
+
+    void Bounds()
+    {
+        Vector3 position = transform.position;
+        float x = transform.position.x;
+        float y = transform.position.y;
+        float z = transform.position.z;
+
+        //x bounds
+        if (x > 115)
+        { 
+           transform.position = new Vector3(114.5f, y, z);
+        }
+        if (x < 65)
+        {
+            transform.position = new Vector3(65.5f, y, z);
+        }
+        //z bounds
+        if (z > 14)
+        {
+            transform.position = new Vector3(x, y, 13.5f);
+        }
+        if (z < -30)
+        {
+            transform.position = new Vector3(x, y, -29.5f);
         }
     }
 
