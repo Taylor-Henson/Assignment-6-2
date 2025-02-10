@@ -18,8 +18,8 @@ public class ThirdPersonMovement : MonoBehaviour
 
     //speed and sprinting
     float speed;
-    float normalSpeed = 2.4f;
-    float sprintSpeed = 4;
+    float normalSpeed = 2.6f;
+    float sprintSpeed = 4.5f;
 
     //gravity
     Vector3 velocity;

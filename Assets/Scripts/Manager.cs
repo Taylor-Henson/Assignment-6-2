@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
 
 public class Manager : MonoBehaviour
 {
@@ -12,6 +13,16 @@ public class Manager : MonoBehaviour
     ThirdPersonMovement thirdPersonMovement;
     PlayerCombat playerCombat;
     public bool canMove;
+
+    [Header("Spawning and Rounds")]
+    public GameObject enemy;
+    public int numberOfEnemies = 1;
+    int spawnNumber = 1;
+    int spawnPoint;
+
+    [Header("TMP")]
+    public TextMeshProUGUI health;
+    public TextMeshProUGUI rounds;
 
     #endregion
 
@@ -38,6 +49,7 @@ public class Manager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //references
         thirdPersonMovement = GameObject.Find("Third Person Player").GetComponent<ThirdPersonMovement>();
         playerCombat = GameObject.Find("Third Person Player").GetComponent<PlayerCombat>();
     }
@@ -45,7 +57,15 @@ public class Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //calling methods
         CanMove();
+        TMP();
+
+        //checks for when all enemies are dead and begins next round
+        if (numberOfEnemies <= 0)
+        {
+            Rounds();
+        }
     }
 
     #endregion
@@ -64,6 +84,63 @@ public class Manager : MonoBehaviour
         {
             canMove = false;
         }
+    }
+
+    #endregion
+
+    #region Rounds And Instantiation
+
+    void Rounds()
+    {   
+         //increases wave number, and so number of enemies to spawn
+         spawnNumber++;
+         //for loop to make Spawn happen spawnnumber amount of times
+         for (int i = 0; i < spawnNumber; i++)
+         {
+             Spawns();
+         }
+        
+    }
+
+    void Spawns()
+    {
+        //finds random preselected spawn point
+        spawnPoint = Random.Range(1, 6);
+        //spawn points
+        if (spawnPoint == 1)
+        {
+            Instantiate(enemy, new Vector3(84f, 1f, -2.7f), Quaternion.identity);
+        }
+        if (spawnPoint == 2)
+        {
+            Instantiate(enemy, new Vector3(83f, 1f, -18), Quaternion.identity);
+        }
+        if (spawnPoint == 3)
+        {
+            Instantiate(enemy, new Vector3(107f, 0f, -14f), Quaternion.identity);
+        }
+        if (spawnPoint == 4)
+        {
+            Instantiate(enemy, new Vector3(107f, 0f, 0f), Quaternion.identity);
+        }
+        if (spawnPoint == 5)
+        {
+            Instantiate(enemy, new Vector3(95f, 0f, 1f), Quaternion.identity);
+        }
+
+        //increases number of enemies alive by amount spawned
+        numberOfEnemies++;
+    }
+
+    #endregion
+
+    #region TMP
+
+    void TMP()
+    {
+        //text
+        health.text = "Health: "+ playerCombat.health;
+        rounds.text = "Round: " + spawnNumber;
     }
 
     #endregion

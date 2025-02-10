@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -7,11 +6,12 @@ public class PlayerCombat : MonoBehaviour
 
     [Header("General")]
     public Animator anim;
+    public Enemy enemy;
 
     [Header("Punching")]
     public Transform punchPoint;
     public LayerMask enemyMask;
-    float sphereSize = 0.4f;
+    float sphereSize = 1f;
     public bool punching;
 
     [Header("Dying")]
@@ -25,12 +25,14 @@ public class PlayerCombat : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        //referneces
+        enemy = GameObject.Find("EnemyFinished").GetComponent<Enemy>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //calling methods
         DoPunch();
         Health();
     }
@@ -41,6 +43,7 @@ public class PlayerCombat : MonoBehaviour
 
     void DoPunch()
     {
+        //makes punch happen
         if (Input.GetButtonDown("Fire1") && Manager.instance.canMove)
         {
             anim.SetTrigger("Punch");
@@ -53,9 +56,17 @@ public class PlayerCombat : MonoBehaviour
         //checks sphere for hit
          Vector3 position = punchPoint.transform.position;
 
-        if (Physics.CheckSphere(position, sphereSize, enemyMask))
+        //creates array of classes (objects) inside of hitsphere
+        Collider[] hitColliders = (Physics.OverlapSphere(position, sphereSize, enemyMask));
+
+        //for every class inside of hitColliders create "enemy"
+        foreach (Collider enemy in hitColliders)
         {
-            print("hit");
+            //access that classes gameobject, its enemy script component, and the die method inside of that
+            enemy.gameObject.GetComponent<Enemy>().Die();
+
+            //decreases number of enemies alive when an enemy is killed
+            Manager.instance.numberOfEnemies--;
         }
     }
 
@@ -68,6 +79,11 @@ public class PlayerCombat : MonoBehaviour
 
     #region Health and Dying
 
+    public void TakeDamage()
+    {
+        //player takes damage
+        health -= 20;
+    }
     void Health()
     {
         //kills player and stops them moving once health is <= 0
@@ -80,8 +96,4 @@ public class PlayerCombat : MonoBehaviour
 
     #endregion
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(punchPoint.transform.position, sphereSize);
-    }
 }
