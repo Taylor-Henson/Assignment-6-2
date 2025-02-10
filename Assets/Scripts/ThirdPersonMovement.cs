@@ -41,7 +41,9 @@ public class ThirdPersonMovement : MonoBehaviour
     // rst execution of Update after the MonoBehaviour is created
     void Start()
     {
-       
+        //locks cursor and hides it
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -53,6 +55,12 @@ public class ThirdPersonMovement : MonoBehaviour
         GroundCheck();
         Gravity();
         Bounds();
+
+        //quit
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     #endregion
