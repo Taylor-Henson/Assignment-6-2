@@ -65,6 +65,9 @@ public class PlayerCombat : MonoBehaviour
             //access that classes gameobject, its enemy script component, and the die method inside of that
             enemy.gameObject.GetComponent<Enemy>().Die();
 
+            //disables collider for dead enemies
+            enemy.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+
             //decreases number of enemies alive when an enemy is killed
             Manager.instance.numberOfEnemies--;
         }
@@ -78,6 +81,12 @@ public class PlayerCombat : MonoBehaviour
     #endregion
 
     #region Health and Dying
+
+    public void Heal()
+    {
+        //healing called by round end
+        health = health + 10;
+    }
 
     public void TakeDamage()
     {

@@ -91,9 +91,13 @@ public class Manager : MonoBehaviour
     #region Rounds And Instantiation
 
     void Rounds()
-    {   
-         //increases wave number, and so number of enemies to spawn
+    {
+        //heals player by 10 health per round
+        playerCombat.Heal();
+
+        //increases wave number, and so number of enemies to spawn
          spawnNumber++;
+
          //for loop to make Spawn happen spawnnumber amount of times
          for (int i = 0; i < spawnNumber; i++)
          {

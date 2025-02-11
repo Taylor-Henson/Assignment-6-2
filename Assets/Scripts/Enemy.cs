@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
         Logic();
 
         //state machine
-        if (!Physics.CheckSphere(transform.position, 1.5f, playerMask))
+        if (!Physics.CheckSphere(transform.position, 0.75f, playerMask))
         {
             state = States.Walking;
         }
